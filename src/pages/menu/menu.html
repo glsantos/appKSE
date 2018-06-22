@@ -1,0 +1,42 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>KSE</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-list-header>
+        Agendamento de Visitas
+      </ion-list-header>
+      <ion-item>
+        Agendar
+      </ion-item>
+      <ion-item>
+        Pendentes
+        <ion-badge item-end>7</ion-badge>
+      </ion-item>
+      <ion-item>
+        Concluídas
+      </ion-item>
+    </ion-list>
+    
+    
+    <ion-item-divider></ion-item-divider>
+    <ion-list>
+      <ion-list-header>
+        Opções
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="settings" item-start></ion-icon>
+        Configurações
+      </ion-item>
+      <ion-item>
+        <ion-icon name="exit" item-start></ion-icon>
+        Sair
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
