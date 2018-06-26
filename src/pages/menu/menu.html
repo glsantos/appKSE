@@ -7,34 +7,39 @@
   <ion-content>
     <ion-list>
       <ion-list-header>
-        Agendamento de Visitas
+        Visitas
       </ion-list-header>
-      <ion-item>
+      <button ion-item (click)="abrirAgendarVisita()">
         Agendar
-      </ion-item>
-      <ion-item>
-        Pendentes
-        <ion-badge item-end>7</ion-badge>
-      </ion-item>
-      <ion-item>
-        Concluídas
-      </ion-item>
+      </button>
+      <button ion-item (click)="abrirConsultarVisita()">
+        Consultar
+      </button>
+      <ion-item-divider></ion-item-divider>
+      <ion-list-header>
+        Visitantes
+      </ion-list-header>
+      <button ion-item (click)="abrirCadastroVisitante()">
+        Cadastrar
+      </button>
+      <button ion-item (click)="abrirConsultaVisitante()">
+        Consultar
+      </button>
     </ion-list>
-    
-    
-    <ion-item-divider></ion-item-divider>
+
+
     <ion-list>
       <ion-list-header>
         Opções
       </ion-list-header>
-      <ion-item>
+      <button ion-item>
         <ion-icon name="settings" item-start></ion-icon>
         Configurações
-      </ion-item>
-      <ion-item>
+      </button>
+      <button ion-item>
         <ion-icon name="exit" item-start></ion-icon>
         Sair
-      </ion-item>
+      </button>
     </ion-list>
   </ion-content>
 </ion-menu>

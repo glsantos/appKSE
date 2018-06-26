@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ComunicadosPage } from '../comunicados/comunicados';
 import { TabsPage } from '../tabs/tabs';
+import { AgendarVisitaPage } from '../agendar-visita/agendar-visita';
+import { CadastrarVisitantePage } from '../cadastrar-visitante/cadastrar-visitante';
+import { ConsultaVisitaPage } from '../consulta-visita/consulta-visita';
+import { ConsultaVisitantePage } from '../consulta-visitante/consulta-visitante';
 
 /**
  * Generated class for the MenuPage page.
@@ -26,9 +29,23 @@ export class MenuPage {
     console.log('ionViewDidLoad MenuPage');
   }
 
-  openPage(page){
+  abrirAgendarVisita() {
 
-    alert(page);
+    this.navCtrl.push(AgendarVisitaPage);
   }
 
+  abrirConsultarVisita(){
+
+    this.navCtrl.push(ConsultaVisitaPage);
+  }
+
+  abrirCadastroVisitante(){
+
+    this.navCtrl.push(CadastrarVisitantePage);
+  }
+
+  abrirConsultaVisitante(){
+
+    this.navCtrl.push(ConsultaVisitantePage);
+  }
 }

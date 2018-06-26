@@ -1,0 +1,55 @@
+<!--
+  Generated template for the AgendarVisitaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Nova Visita</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding padding-left>
+  <ion-list>
+
+    <ion-item>
+      <ion-label fixed color="primary">RG</ion-label>
+      <ion-input type="text" text-right (ionBlur)='encontraRg(rgVisita)' [(ngModel)]="rgVisita"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="visitanteExiste">
+      <ion-label color="primary">Nome </ion-label>
+      <ion-input type="text" text-right placeholder="João da Silva" [(ngModel)]="nomeVisitante" val="nomeVisitante" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed color="primary">Data</ion-label>
+      <ion-datetime item-right min="{{dataAtual}}" id="data_visita" (ionChange)='definirHoraMinima(dataVisita)' [(ngModel)]="dataVisita"
+        doneText="Pronto" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
+    </ion-item>
+
+    <ion-item *ngIf="mesmaData == true">
+      <ion-label fixed color="primary">Hora</ion-label>
+      <ion-datetime min="{{horaMinima}}" doneText="Pronto" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="mesmaData == false">
+      <ion-label fixed color="primary">Hora</ion-label>
+      <ion-datetime text-right displayFormat="HH:mm" doneText="Pronto" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating color="primary">Motivo da Visita</ion-label>
+      <ion-textarea type="text"></ion-textarea>
+    </ion-item>
+
+    <button item-end ion-button>
+      <!--Criar função para resgatar os dados e agendar a visita-->
+      Solicitar
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,60 @@
+<!--
+  Generated template for the CadastrarVisitantePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>cadastrar-visitante</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item text-center>
+    <h1>Dados do Visitante</h1>
+  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label>Prestador de Serviço</ion-label>
+      <ion-toggle (ionChange)='definirtipoVisitante(tipoVisitante)' [(ngModel)]="tipoVisitante"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Nome </ion-label>
+      <ion-input type="text" text-right placeholder="João da Silva" [(ngModel)]="nomeVisitante"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary">Email</ion-label>
+      <ion-input type="email" text-right placeholder="joao@email.com.br" [(ngModel)]="emailVisitante"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="prestador">
+      <ion-label color="primary">Empresa</ion-label>
+      <ion-input type="text" text-right placeholder="Afonso's Enterprise" [(ngModel)]="empresaVisitante"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed color="primary">CPF</ion-label>
+      <ion-input type="text" text-right placeholder="999.999.999-99" active [(ngModel)]="cpfVisitante"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed color="primary">RG</ion-label>
+      <ion-input type="text" text-right placeholder="99.999.999-9" [(ngModel)]="rgVisitante"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed color="primary">Tel/Celular</ion-label>
+      <ion-input type="phone" text-right placeholder="(99)*9999-9999" [(ngModel)]="telefoneVisitante"></ion-input>
+    </ion-item>
+    <ion-item-divider></ion-item-divider>
+    <button ion-button block color="primary">
+      Cadastrar
+    </button>
+  </ion-list>
+</ion-content>
