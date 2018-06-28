@@ -44,4 +44,20 @@ import { ConsultaVisitantePageModule } from '../pages/consulta-visitante/consult
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+  
+  /*private link1: string = "localhost"; // Padrão
+  private link2: string = "10.10.24.126"; // Rede cabeada acesso ao 22
+  private link3: string = "192.168.17.230"; // Rede Wifi sem acesso ao 22
+
+  private static url: string = "";
+
+   static getUrl(){
+     return this.url;
+   }
+
+   /*
+    *   import { AppModule } from '../app/app.module';
+    *   private url: string = AppModule.getUrl();
+   */
+}

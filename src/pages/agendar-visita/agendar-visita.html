@@ -5,51 +5,93 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>Nova Visita</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding padding-left>
+<ion-content>
+  <ion-item text-center>
+    <h1>Dados do Visitante</h1>
+  </ion-item>
   <ion-list>
+    <ion-searchbar placeholder="Pesquise por Rg" [(ngModel)]="rg" (ionBlur)="checarExistenciaVisitante(rg)"></ion-searchbar>
 
-    <ion-item>
-      <ion-label fixed color="primary">RG</ion-label>
-      <ion-input type="text" text-right (ionBlur)='encontraRg(rgVisita)' [(ngModel)]="rgVisita"></ion-input>
-    </ion-item>
+    <div padding-left padding-right>
+      <ion-item *ngIf="visitanteCadastradoVal != null || visitanteRgAviso != null">
+        <h5 text-center>
+          <span *ngIf="visitanteCadastradoVal != null" color="dark">
+            <b> Visitante</b>: {{ visitanteCadastradoVal }}
+          </span>
+          <h4 *ngIf="visitanteRgAviso != null" color="danger">
+            {{ visitanteRgAviso }}
+          </h4>
+        </h5>
+      </ion-item>
 
-    <ion-item *ngIf="visitanteExiste">
-      <ion-label color="primary">Nome </ion-label>
-      <ion-input type="text" text-right placeholder="João da Silva" [(ngModel)]="nomeVisitante" val="nomeVisitante" readonly></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label color="primary">Nome </ion-label>
+        <ion-input [(ngModel)]="nome" type="text" text-right placeholder="João da Silva" [readonly]="bloqueiaCamposCadastrado">{{visitanteNome}}</ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label fixed color="primary">Data</ion-label>
-      <ion-datetime item-right min="{{dataAtual}}" id="data_visita" (ionChange)='definirHoraMinima(dataVisita)' [(ngModel)]="dataVisita"
-        doneText="Pronto" displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
-    </ion-item>
+      <ion-item>
+        <ion-label fixed color="primary">RG</ion-label>
+        <ion-input [(ngModel)]="rg" type="text" text-right placeholder="99.999.999-9" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
 
-    <ion-item *ngIf="mesmaData == true">
-      <ion-label fixed color="primary">Hora</ion-label>
-      <ion-datetime min="{{horaMinima}}" doneText="Pronto" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
-    </ion-item>
-    <ion-item *ngIf="mesmaData == false">
-      <ion-label fixed color="primary">Hora</ion-label>
-      <ion-datetime text-right displayFormat="HH:mm" doneText="Pronto" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
-    </ion-item>
+      <ion-item>
+        <ion-label fixed color="primary">CPF</ion-label>
+        <ion-input [(ngModel)]="cpf" type="text" text-right placeholder="999.999.999-99" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label floating color="primary">Motivo da Visita</ion-label>
-      <ion-textarea type="text"></ion-textarea>
-    </ion-item>
+      <!--<ion-item>
+        <ion-label color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" text-right placeholder="joao@email.com.br" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
 
-    <button item-end ion-button>
-      <!--Criar função para resgatar os dados e agendar a visita-->
-      Solicitar
-      <ion-icon name="add"></ion-icon>
-    </button>
+      <ion-item>
+        <ion-label fixed color="primary">Tel/Celular</ion-label>
+        <ion-input [(ngModel)]="telefoneCelular" type="phone" text-right placeholder="(99)*9999-9999" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>-->
+
+      <ion-item>
+        <ion-label color="primary">Prestador de Serviço</ion-label>
+        <ion-checkbox item-end [(ngModel)]="prestador" [checked]="prestador"></ion-checkbox>
+      </ion-item>
+
+      <ion-item *ngIf="prestador == true">
+        <ion-label color="primary">Empresa</ion-label>
+        <ion-input [(ngModel)]="empresa" type="text" text-right placeholder="Afonso's Enterprise" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Data</ion-label>
+        <ion-datetime min="{{dataAtual}}" id="data_visita" (ionChange)='definirHoraMinima(dataVisita)' [(ngModel)]="dataVisita" doneText="Pronto"
+          displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY"></ion-datetime>
+      </ion-item>
+
+      <ion-item *ngIf="mesmaData == true">
+        <ion-label color="primary">Hora</ion-label>
+        <ion-datetime min="{{horaMinima}}" doneText="Pronto" displayFormat="HH:mm" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+      </ion-item>
+      <ion-item *ngIf="mesmaData == false">
+        <ion-label color="primary">Hora</ion-label>
+        <ion-datetime displayFormat="HH:mm" doneText="Pronto" pickerFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating color="primary">Motivo da Visita</ion-label>
+        <ion-textarea type="text"></ion-textarea>
+      </ion-item>
+
+
+      <ion-footer>
+        <ion-item>
+          <button item-end ion-fab (click)="abreCadastroVisita()">
+            <ion-icon name="return-right"></ion-icon>
+          </button>
+        </ion-item>
+      </ion-footer>
+    </div>
   </ion-list>
 </ion-content>

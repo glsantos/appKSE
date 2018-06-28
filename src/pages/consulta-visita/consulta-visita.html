@@ -14,5 +14,9 @@
 
 
 <ion-content padding>
-
+  <ion-card *ngIf="dados">
+    <ion-item>
+      <p>{{ dados.nome }}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>
