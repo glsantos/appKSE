@@ -19,7 +19,6 @@ export class AgendarVisitaPage {
   public visitanteCadastradoVal: string;
   public visitanteRgAviso: string;
   public rgDigitado: string;
-  public bloqueiaCamposCadastrado: boolean = false;
   public nomeVisitante: any = null;
 
   public nome: any = null;
@@ -28,6 +27,7 @@ export class AgendarVisitaPage {
   public telefoneCelular: any = null;
   public empresa: any = null;
   public prestador: any = null;
+  public isPrestador: boolean = true;
 
   // Simulando API
   visitantes: any;
@@ -45,6 +45,8 @@ export class AgendarVisitaPage {
   public nomeSelecionado: any;
   public nomeSelecionadoAnt: any;
   public isChecked: boolean;
+  public preencheuRgCorretamente: boolean = false;
+  public bloqueiaCamposCadastrado: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, ) {
 
@@ -61,9 +63,33 @@ export class AgendarVisitaPage {
     this.visitantes = this.lista;
   }
 
+  limpaMensagens(rgDigitado) {
+
+    if (rgDigitado == "" || rgDigitado == " " || rgDigitado == null) {
+
+      this.visitanteCadastrado = false;
+      this.visitanteCadastradoVal = null;
+      this.visitanteRgAviso = null;
+
+      this.nome = null;
+      this.cpf = null;
+      this.email = null;
+      this.telefoneCelular = null;
+      this.empresa = null;
+      this.prestador = false;
+      
+      if (this.preencheuRgCorretamente == true) {
+
+        this.preencheuRgCorretamente = true;
+      }else{
+
+        this.preencheuRgCorretamente = false;
+      }
+    }
+  }
+
   checarExistenciaVisitante(rgDigitado) {
 
-    console.log(rgDigitado);
     if (rgDigitado != null || rgDigitado == "" || rgDigitado == " ") {
 
       if (rgDigitado.length == 12) {
@@ -78,19 +104,23 @@ export class AgendarVisitaPage {
 
             this.visitanteCadastrado = true;
             this.visitanteRgAviso = null;
-            this.visitanteCadastradoVal = "Já cadastrado!";
+            this.visitanteCadastradoVal = "Visitante já cadastrado, confirme os dados!";
 
             this.preencherVisitanteCadastrado(listVisitantes[i]);
-
+            this.preencheuRgCorretamente = true;
+            this.bloqueiaCamposCadastrado = true;
             break;
           } else {
 
+            // Caso o Visitante esteja cadastrado, é desbloqueado os campos para preenchimento do Cadastro do mesmo
             if (i == listVisitantes.length - 1) {
 
-              this.visitanteCadastrado = false;
-              this.visitanteCadastradoVal = null;
-              this.visitanteRgAviso = null;
-              this.visitanteCadastradoVal = "não cadastrado!";
+              this.limpaMensagens('');
+              this.visitanteCadastradoVal = "Visitante ainda não cadastrado!";
+              this.visitanteRgAviso = "Preencha os campos abaixo!";
+              
+              this.preencheuRgCorretamente = true;
+              this.bloqueiaCamposCadastrado = false;
             }
           }
 
@@ -99,26 +129,23 @@ export class AgendarVisitaPage {
       } else if (rgDigitado.length >= 1 && rgDigitado.length < 12) {
 
         // Quando o campo não está nulo mas não possível o QTD de um RG
+        this.limpaMensagens('');
         this.visitanteRgAviso = 'Digite corretamente o RG!';
+        this.bloqueiaCamposCadastrado = false;
+        this.preencheuRgCorretamente = false;
       } else {
 
         // Quando o campo é limpo, as variaveis que exibem as mensagens são limpas
-        this.visitanteCadastrado = null;
-        this.visitanteCadastradoVal = null;
-        this.visitanteRgAviso = null;
+        this.limpaMensagens('');
       }
     } else {
 
       // Quando está nulo pela primeira vez
-      this.visitanteCadastrado = null;
-      this.visitanteCadastradoVal = null;
-      this.visitanteRgAviso = null;
+      this.limpaMensagens('');
     }
   }
 
   preencherVisitanteCadastrado(dadosVisitante) {
-
-    console.log(dadosVisitante);
 
     this.bloqueiaCamposCadastrado = true;
 
@@ -128,6 +155,14 @@ export class AgendarVisitaPage {
     this.telefoneCelular = dadosVisitante.telefoneCelular;
     this.empresa = dadosVisitante.empresa;
     this.prestador = dadosVisitante.prestador;
+
+    if (this.prestador == true) {
+
+      this.isPrestador = true;
+    } else {
+
+      this.isPrestador = false;
+    }
 
   }
 

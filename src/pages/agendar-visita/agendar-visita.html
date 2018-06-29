@@ -11,22 +11,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-item text-center>
-    <h1>Dados do Visitante</h1>
-  </ion-item>
-  <ion-list>
-    <ion-searchbar placeholder="Pesquise por Rg" [(ngModel)]="rg" (ionBlur)="checarExistenciaVisitante(rg)"></ion-searchbar>
+  <ion-searchbar placeholder="99-999-999-9" [(ngModel)]="rg" (ionInput)="limpaMensagens(rg)" (ionBlur)="checarExistenciaVisitante(rg)"></ion-searchbar>
 
-    <div padding-left padding-right>
-      <ion-item *ngIf="visitanteCadastradoVal != null || visitanteRgAviso != null">
-        <h5 text-center>
-          <span *ngIf="visitanteCadastradoVal != null" color="dark">
-            <b> Visitante</b>: {{ visitanteCadastradoVal }}
-          </span>
-          <h4 *ngIf="visitanteRgAviso != null" color="danger">
-            {{ visitanteRgAviso }}
-          </h4>
-        </h5>
+  <ion-list>
+    <ion-item *ngIf="preencheuRgCorretamente == false" text-center>
+
+      <h4 text-center>Insira o RG do Visitante acima!</h4>
+    </ion-item>
+    <ion-item *ngIf="visitanteCadastradoVal != null || visitanteRgAviso != null">
+      <h6 text-center *ngIf="visitanteCadastradoVal != null" color="dark">
+        {{ visitanteCadastradoVal }}
+      </h6>
+      <h4 text-center *ngIf="visitanteRgAviso != null" color="danger">
+        {{ visitanteRgAviso }}
+      </h4>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <div *ngIf="preencheuRgCorretamente == true" padding-left padding-right>
+
+      <ion-item text-center>
+        <h1 *ngIf="preencheuRgCorretamente == true">Dados da Visita</h1>
       </ion-item>
 
       <ion-item>
@@ -44,17 +49,7 @@
         <ion-input [(ngModel)]="cpf" type="text" text-right placeholder="999.999.999-99" [readonly]="bloqueiaCamposCadastrado"></ion-input>
       </ion-item>
 
-      <!--<ion-item>
-        <ion-label color="primary">Email</ion-label>
-        <ion-input [(ngModel)]="email" type="email" text-right placeholder="joao@email.com.br" [readonly]="bloqueiaCamposCadastrado"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label fixed color="primary">Tel/Celular</ion-label>
-        <ion-input [(ngModel)]="telefoneCelular" type="phone" text-right placeholder="(99)*9999-9999" [readonly]="bloqueiaCamposCadastrado"></ion-input>
-      </ion-item>-->
-
-      <ion-item>
+      <ion-item *ngIf="isPrestador == true">
         <ion-label color="primary">Prestador de Serviço</ion-label>
         <ion-checkbox item-end [(ngModel)]="prestador" [checked]="prestador"></ion-checkbox>
       </ion-item>
@@ -62,6 +57,15 @@
       <ion-item *ngIf="prestador == true">
         <ion-label color="primary">Empresa</ion-label>
         <ion-input [(ngModel)]="empresa" type="text" text-right placeholder="Afonso's Enterprise" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" text-right placeholder="joao@email.com.br" [readonly]="bloqueiaCamposCadastrado"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed color="primary">Tel/Celular</ion-label>
+        <ion-input [(ngModel)]="telefoneCelular" type="phone" text-right placeholder="(99)*9999-9999" [readonly]="bloqueiaCamposCadastrado"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -84,14 +88,25 @@
         <ion-textarea type="text"></ion-textarea>
       </ion-item>
 
+      <ion-item item-end>
+        <button item-end ion-fab>
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-item>
+    </div>
 
-      <ion-footer>
-        <ion-item>
-          <button item-end ion-fab (click)="abreCadastroVisita()">
-            <ion-icon name="return-right"></ion-icon>
-          </button>
-        </ion-item>
-      </ion-footer>
+    <div *ngIf="preencheuRgCorretamente == false" padding-left padding-right>
+      <h2 text-center>
+        Bem vindo ao módulo de Agendamento de Visitas!
+      </h2>
+      <h6>
+        <p text-justify>
+          Caso o visitante já esteja
+          <strong>cadastrado</strong> os dados serão exibidos para confirmação, do contrário será necessário o Cadastro do Visitante
+          no momento do
+          <strong>Agendamento</strong>!
+        </p>
+      </h6>
     </div>
   </ion-list>
 </ion-content>
