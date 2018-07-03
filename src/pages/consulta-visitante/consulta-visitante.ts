@@ -1,3 +1,4 @@
+import { VisitanteProvider } from './../../providers/visitante/visitante';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -12,14 +13,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-consulta-visitante',
   templateUrl: 'consulta-visitante.html',
+  providers: [
+
+    VisitanteProvider
+  ]
 })
 export class ConsultaVisitantePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public lista_visitantes = new Array<any>();
+
+  constructor(public visitanteProvider: VisitanteProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConsultaVisitantePage');
+
+    this.carregaVisitantes();
+  }
+
+  carregaVisitantes(){
+
+    this.visitanteProvider.getVisitantes().subscribe(
+
+      data => {
+
+        const response = (data as any);
+        
+        this.lista_visitantes = response.results;
+        console.log(this.lista_visitantes);
+      }
+    )
   }
 
 }

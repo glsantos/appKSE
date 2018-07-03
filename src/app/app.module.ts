@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
-
+import { HttpClientModule } from '@angular/common/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ComunicadosPageModule } from '../pages/comunicados/comunicados.module';
@@ -15,6 +15,9 @@ import { AgendarVisitaPageModule } from '../pages/agendar-visita/agendar-visita.
 import { CadastrarVisitantePageModule } from '../pages/cadastrar-visitante/cadastrar-visitante.module';
 import { ConsultaVisitaPageModule } from '../pages/consulta-visita/consulta-visita.module';
 import { ConsultaVisitantePageModule } from '../pages/consulta-visitante/consulta-visitante.module';
+import { VisitanteProvider } from '../providers/visitante/visitante';
+import { AtletasPageModule } from '../pages/atletas/atletas.module';
+import { CartolaProvider } from '../providers/cartola/cartola';
 
 @NgModule({
   declarations: [
@@ -27,11 +30,13 @@ import { ConsultaVisitantePageModule } from '../pages/consulta-visitante/consult
     ComunicadosPageModule,
     VisitantesPageModule,
     MenuPageModule,
+    HttpClientModule,
     AgendamentosPageModule,
     AgendarVisitaPageModule,
     ConsultaVisitaPageModule,
     CadastrarVisitantePageModule,
-    ConsultaVisitantePageModule
+    ConsultaVisitantePageModule,
+    AtletasPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +46,9 @@ import { ConsultaVisitantePageModule } from '../pages/consulta-visitante/consult
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    VisitanteProvider,
+    CartolaProvider
   ]
 })
 export class AppModule {

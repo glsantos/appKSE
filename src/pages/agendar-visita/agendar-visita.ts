@@ -50,6 +50,7 @@ export class AgendarVisitaPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, ) {
 
+    
     this.initializeItems();
   }
 
